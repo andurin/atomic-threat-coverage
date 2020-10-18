@@ -1,11 +1,10 @@
-title: CU_0001_TESTCUSTOMER
-customer_name: TESTCUSTOMER
+title: UC_0001_TESTUSECASE
+usecase_name: TESTUSECASE
 description: >
   Some text description here. It will be merged into one line.
 dataneeded:
   - DN_0001_4688_windows_process_creation
   - DN_0002_4688_windows_process_creation_with_commandline
-  - DN_0003_1_windows_sysmon_process_creation
 loggingpolicy:
   - LP_0001_windows_audit_process_creation
   - LP_0002_windows_audit_process_creation_with_commandline
@@ -18,4 +17,3 @@ detectionrule:
   - Exploit for CVE-2015-1641
   - Exploit for CVE-2017-0261
   - Dridex Process Pattern
-usecase:

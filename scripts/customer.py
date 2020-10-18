@@ -33,6 +33,26 @@ for dr_path in dr_dirs:
 _ = zip(all_rules, all_names, all_titles, all_paths)
 rules_by_title = {title: (rule, name, path) for (rule, name, title, path) in _}
 
+uc_dirs = ATCconfig.get('usecases_directory')
+
+all_usecases = []
+all_ucnames = []
+all_uctitles = []
+
+if isinstance(uc_dirs, str):
+    uc_dirs = uc_dirs.split()
+
+for uc_path in uc_dirs:
+    usecases, paths = ATCutils.load_yamls_with_paths(uc_path)
+    all_usecases = all_usecases + usecases
+    names = [path.split('/')[-1].replace('.yml', '') for path in paths]
+    all_ucnames = all_ucnames + names
+    titles = [usecase.get('title') for usecase in usecases]
+    all_uctitles = all_uctitles + titles
+
+a = zip(all_usecases, all_ucnames, all_uctitles)
+usecases_by_title = {title: (usecase, name) for (usecase, name, title) in a}
+
 
 class Customer:
     """Class for Customer entity"""
@@ -47,6 +67,7 @@ class Customer:
         self.data_needed = None
         self.logging_policies = None
         self.detection_rules = None
+        self.use_cases = None
 
         self.yaml_file = yaml_file
 
@@ -71,6 +92,7 @@ class Customer:
         self.data_needed = self.cu_fields.get('dataneeded')
         self.logging_policies = self.cu_fields.get('loggingpolicy')
         self.detection_rules = self.cu_fields.get('detectionrule')
+        self.use_cases = self.cu_fields.get('usecase')
 
     def get_rules(self):
         """ Retruns list of detection rules for customer
@@ -79,6 +101,14 @@ class Customer:
                                 for dr_title in self.detection_rules]
 
         return dr_list_per_customer
+
+    def get_usecases(self):
+        """ Retruns list of use cases for customer
+        """
+        uc_list_per_customer = [usecases_by_title.get(uc_title)[0]
+                                for uc_title in self.use_cases]
+
+        return uc_list_per_customer
 
     def render_template(self, template_type):
         """Render template with data in it
@@ -120,6 +150,19 @@ class Customer:
             detectionrule_with_path.append(dr)
 
         self.cu_fields.update({'detectionrule': detectionrule_with_path})
+
+        usecase_with_path = []
+
+        if self.use_cases is not None:
+            for title in self.use_cases:
+                if title is not None:
+                    name = usecases_by_title.get(title)[1]
+                else:
+                    name = ''
+                uc = (title, name)
+                usecase_with_path.append(uc)
+
+        self.cu_fields.update({'usecase': usecase_with_path})
 
         # Get proper template
         if template_type == "markdown":
