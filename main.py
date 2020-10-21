@@ -149,7 +149,7 @@ if __name__ == '__main__':
                            dn=args.dataneeded, dr=args.detectionrule,
                            tg=args.triggers, en=args.enrichment,
                            cu=args.customers, hp=args.hardeningpolicy, 
-                           init=args.init)
+                           uc=args.usecases, init=args.init)
         ReactPopulateConfluence(auth=auth, auto=args.auto, 
                                 ra=args.responseactions, rp=args.responseplaybook,
                                 rs=args.responsestage, init=args.init)
