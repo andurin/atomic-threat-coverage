@@ -19,3 +19,5 @@ detectionrule:
   - Exploit for CVE-2017-0261
   - Dridex Process Pattern
 usecase:
+  - UC_0001_TESTUSECASE
+  - UC_0002_INITIALACCESS
