@@ -427,12 +427,7 @@ class PopulateConfluence:
                     "parentid": str(ATCutils.confluence_get_page_id(
                         self.apipath, self.auth, self.space,
                         "Customers")),
-                    "confluencecontent": cu.content,
-                    "metadata": {
-                        "labels": [{
-                        "name": "atc_customer"
-                        }]
-                    }
+                    "confluencecontent": cu.content
                 }
 
                 res = ATCutils.push_to_confluence(confluence_data, self.apipath,
@@ -470,12 +465,7 @@ class PopulateConfluence:
                     "parentid": str(ATCutils.confluence_get_page_id(
                         self.apipath, self.auth, self.space,
                         "Use Cases")),
-                    "confluencecontent": uc.content,
-                    "metadata": {
-                        "labels": [{
-                        "name": "atc_usecases"
-                        }]
-                    }
+                    "confluencecontent": uc.content
                 }
 
                 res = ATCutils.push_to_confluence(confluence_data, self.apipath,
