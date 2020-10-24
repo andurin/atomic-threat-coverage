@@ -427,7 +427,12 @@ class PopulateConfluence:
                     "parentid": str(ATCutils.confluence_get_page_id(
                         self.apipath, self.auth, self.space,
                         "Customers")),
-                    "confluencecontent": cu.content
+                    "confluencecontent": cu.content,
+                    "metadata": {
+                        "labels": [{
+                        "name": "atc_customer"
+                        }]
+                    }
                 }
 
                 res = ATCutils.push_to_confluence(confluence_data, self.apipath,
